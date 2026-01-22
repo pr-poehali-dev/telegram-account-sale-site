@@ -147,7 +147,7 @@ export function generateAccounts() {
   return countries.map((country, index) => ({
     id: index + 1,
     title: `Аккаунт ${country.name}`,
-    price: Math.floor(Math.random() * 301) + 100,
+    price: Math.floor(Math.random() * 251) + 100,
     verified: Math.random() > 0.4,
     premium: Math.random() > 0.5,
     age: `${Math.floor(Math.random() * 6) + 1} ${['год', 'года', 'лет'][Math.floor(Math.random() * 3)]}`,
