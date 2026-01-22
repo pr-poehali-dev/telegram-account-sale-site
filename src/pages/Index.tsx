@@ -19,6 +19,7 @@ interface CartItem {
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('all');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const accounts = useMemo(() => generateAccounts(), []);
@@ -28,12 +29,14 @@ const Index = () => {
     ...countries.map(c => ({ value: c.code, label: `${c.flag} ${c.name}`, icon: 'MapPin' as const }))
   ];
 
-  const filteredAccounts = accounts.filter(account => {
-    const matchesSearch = account.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         account.countryName.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCountry = selectedCountry === 'all' || account.country === selectedCountry;
-    return matchesSearch && matchesCountry;
-  });
+  const filteredAccounts = accounts
+    .filter(account => {
+      const matchesSearch = account.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           account.countryName.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCountry = selectedCountry === 'all' || account.country === selectedCountry;
+      return matchesSearch && matchesCountry;
+    })
+    .sort((a, b) => sortOrder === 'asc' ? a.price - b.price : b.price - a.price);
 
   const addToCart = (account: typeof accounts[0]) => {
     setCart(prev => {
@@ -183,6 +186,25 @@ const Index = () => {
                     </div>
                   </SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+            <Select value={sortOrder} onValueChange={(value: 'asc' | 'desc') => setSortOrder(value)}>
+              <SelectTrigger className="w-full md:w-[240px] h-12 bg-card/50 border-border/50">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="asc">
+                  <div className="flex items-center gap-2">
+                    <Icon name="ArrowUp" size={16} />
+                    От дешёвых к дорогим
+                  </div>
+                </SelectItem>
+                <SelectItem value="desc">
+                  <div className="flex items-center gap-2">
+                    <Icon name="ArrowDown" size={16} />
+                    От дорогих к дешёвым
+                  </div>
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
