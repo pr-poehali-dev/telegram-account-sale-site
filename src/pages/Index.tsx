@@ -29,7 +29,8 @@ const Index = () => {
   ];
 
   const filteredAccounts = accounts.filter(account => {
-    const matchesSearch = account.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = account.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         account.countryName.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCountry = selectedCountry === 'all' || account.country === selectedCountry;
     return matchesSearch && matchesCountry;
   });
