@@ -10,7 +10,7 @@ const accounts = [
   {
     id: 1,
     title: 'Премиум аккаунт Казахстан',
-    price: 4500,
+    price: 150,
     verified: true,
     premium: true,
     age: '2 года',
@@ -22,7 +22,7 @@ const accounts = [
   {
     id: 2,
     title: 'Бизнес аккаунт Беларусь',
-    price: 6800,
+    price: 180,
     verified: true,
     premium: true,
     age: '3 года',
@@ -34,7 +34,7 @@ const accounts = [
   {
     id: 3,
     title: 'Старый аккаунт Финляндия',
-    price: 12200,
+    price: 350,
     verified: false,
     premium: false,
     age: '5 лет',
@@ -46,7 +46,7 @@ const accounts = [
   {
     id: 4,
     title: 'Премиум аккаунт Украина',
-    price: 5200,
+    price: 170,
     verified: true,
     premium: true,
     age: '1.5 года',
@@ -58,7 +58,7 @@ const accounts = [
   {
     id: 5,
     title: 'Бизнес аккаунт Польша',
-    price: 8500,
+    price: 280,
     verified: true,
     premium: true,
     age: '4 года',
@@ -70,7 +70,7 @@ const accounts = [
   {
     id: 6,
     title: 'Старый аккаунт Великобритания',
-    price: 18000,
+    price: 400,
     verified: false,
     premium: false,
     age: '7 лет',
@@ -82,7 +82,7 @@ const accounts = [
   {
     id: 7,
     title: 'Премиум аккаунт Германия',
-    price: 9800,
+    price: 320,
     verified: true,
     premium: true,
     age: '3 года',
@@ -94,7 +94,7 @@ const accounts = [
   {
     id: 8,
     title: 'Бизнес аккаунт Турция',
-    price: 7200,
+    price: 190,
     verified: true,
     premium: false,
     age: '2.5 года',
@@ -106,7 +106,7 @@ const accounts = [
   {
     id: 9,
     title: 'Старый аккаунт Литва',
-    price: 11500,
+    price: 310,
     verified: false,
     premium: true,
     age: '6 лет',
@@ -114,6 +114,186 @@ const accounts = [
     country: 'lt',
     countryName: '🇱🇹 Литва',
     features: ['Telegram Premium', 'Старая регистрация', 'Чистая история']
+  },
+  {
+    id: 10,
+    title: 'Премиум аккаунт Испания',
+    price: 290,
+    verified: true,
+    premium: true,
+    age: '2 года',
+    followers: '1.8К',
+    country: 'es',
+    countryName: '🇪🇸 Испания',
+    features: ['Telegram Premium', 'Верифицирован', 'Активные чаты']
+  },
+  {
+    id: 11,
+    title: 'Бизнес аккаунт Франция',
+    price: 340,
+    verified: true,
+    premium: true,
+    age: '4 года',
+    followers: '7.2К',
+    country: 'fr',
+    countryName: '🇫🇷 Франция',
+    features: ['Telegram Premium', 'Верифицирован', 'История активности']
+  },
+  {
+    id: 12,
+    title: 'Аккаунт Италия',
+    price: 260,
+    verified: false,
+    premium: false,
+    age: '3 года',
+    followers: '940',
+    country: 'it',
+    countryName: '🇮🇹 Италия',
+    features: ['Чистая история', 'Без банов', 'Активность средняя']
+  },
+  {
+    id: 13,
+    title: 'Премиум аккаунт США',
+    price: 390,
+    verified: true,
+    premium: true,
+    age: '5 лет',
+    followers: '3.5К',
+    country: 'us',
+    countryName: '🇺🇸 США',
+    features: ['Telegram Premium', 'Верифицирован', 'Старая регистрация']
+  },
+  {
+    id: 14,
+    title: 'Аккаунт Канада',
+    price: 370,
+    verified: true,
+    premium: false,
+    age: '3.5 года',
+    followers: '2.1К',
+    country: 'ca',
+    countryName: '🇨🇦 Канада',
+    features: ['Верифицирован', 'Чистая история', 'Без блокировок']
+  },
+  {
+    id: 15,
+    title: 'Старый аккаунт Австралия',
+    price: 380,
+    verified: false,
+    premium: true,
+    age: '6 лет',
+    followers: '1.1К',
+    country: 'au',
+    countryName: '🇦🇺 Австралия',
+    features: ['Telegram Premium', 'Старая регистрация', 'Редкий номер']
+  },
+  {
+    id: 16,
+    title: 'Аккаунт Швеция',
+    price: 300,
+    verified: true,
+    premium: false,
+    age: '2.5 года',
+    followers: '1.5К',
+    country: 'se',
+    countryName: '🇸🇪 Швеция',
+    features: ['Верифицирован', 'Европейский номер', 'Чистая история']
+  },
+  {
+    id: 17,
+    title: 'Премиум аккаунт Норвегия',
+    price: 330,
+    verified: true,
+    premium: true,
+    age: '3 года',
+    followers: '2.8К',
+    country: 'no',
+    countryName: '🇳🇴 Норвегия',
+    features: ['Telegram Premium', 'Верифицирован', 'Активные подписки']
+  },
+  {
+    id: 18,
+    title: 'Аккаунт Чехия',
+    price: 220,
+    verified: false,
+    premium: false,
+    age: '2 года',
+    followers: '680',
+    country: 'cz',
+    countryName: '🇨🇿 Чехия',
+    features: ['Чистая история', 'Без банов', 'Европейский номер']
+  },
+  {
+    id: 19,
+    title: 'Бизнес аккаунт Нидерланды',
+    price: 310,
+    verified: true,
+    premium: true,
+    age: '4 года',
+    followers: '5.6К',
+    country: 'nl',
+    countryName: '🇳🇱 Нидерланды',
+    features: ['Telegram Premium', 'Верифицирован', 'Большая аудитория']
+  },
+  {
+    id: 20,
+    title: 'Аккаунт Грузия',
+    price: 120,
+    verified: false,
+    premium: false,
+    age: '1.5 года',
+    followers: '450',
+    country: 'ge',
+    countryName: '🇬🇪 Грузия',
+    features: ['Чистая история', 'Без блокировок', 'Активность средняя']
+  },
+  {
+    id: 21,
+    title: 'Премиум аккаунт Эстония',
+    price: 290,
+    verified: true,
+    premium: true,
+    age: '3 года',
+    followers: '1.9К',
+    country: 'ee',
+    countryName: '🇪🇪 Эстония',
+    features: ['Telegram Premium', 'Верифицирован', 'Европейский номер']
+  },
+  {
+    id: 22,
+    title: 'Аккаунт Латвия',
+    price: 250,
+    verified: true,
+    premium: false,
+    age: '2 года',
+    followers: '1.3К',
+    country: 'lv',
+    countryName: '🇱🇻 Латвия',
+    features: ['Верифицирован', 'Чистая история', 'Активные группы']
+  },
+  {
+    id: 23,
+    title: 'Аккаунт Армения',
+    price: 130,
+    verified: false,
+    premium: false,
+    age: '1 год',
+    followers: '380',
+    country: 'am',
+    countryName: '🇦🇲 Армения',
+    features: ['Без банов', 'Чистая история', 'Новый номер']
+  },
+  {
+    id: 24,
+    title: 'Премиум аккаунт Япония',
+    price: 395,
+    verified: true,
+    premium: true,
+    age: '5 лет',
+    followers: '4.2К',
+    country: 'jp',
+    countryName: '🇯🇵 Япония',
+    features: ['Telegram Premium', 'Верифицирован', 'Раритетный']
   }
 ];
 
@@ -127,7 +307,22 @@ const countries = [
   { value: 'gb', label: '🇬🇧 Великобритания', icon: 'MapPin' },
   { value: 'de', label: '🇩🇪 Германия', icon: 'MapPin' },
   { value: 'tr', label: '🇹🇷 Турция', icon: 'MapPin' },
-  { value: 'lt', label: '🇱🇹 Литва', icon: 'MapPin' }
+  { value: 'lt', label: '🇱🇹 Литва', icon: 'MapPin' },
+  { value: 'es', label: '🇪🇸 Испания', icon: 'MapPin' },
+  { value: 'fr', label: '🇫🇷 Франция', icon: 'MapPin' },
+  { value: 'it', label: '🇮🇹 Италия', icon: 'MapPin' },
+  { value: 'us', label: '🇺🇸 США', icon: 'MapPin' },
+  { value: 'ca', label: '🇨🇦 Канада', icon: 'MapPin' },
+  { value: 'au', label: '🇦🇺 Австралия', icon: 'MapPin' },
+  { value: 'se', label: '🇸🇪 Швеция', icon: 'MapPin' },
+  { value: 'no', label: '🇳🇴 Норвегия', icon: 'MapPin' },
+  { value: 'cz', label: '🇨🇿 Чехия', icon: 'MapPin' },
+  { value: 'nl', label: '🇳🇱 Нидерланды', icon: 'MapPin' },
+  { value: 'ge', label: '🇬🇪 Грузия', icon: 'MapPin' },
+  { value: 'ee', label: '🇪🇪 Эстония', icon: 'MapPin' },
+  { value: 'lv', label: '🇱🇻 Латвия', icon: 'MapPin' },
+  { value: 'am', label: '🇦🇲 Армения', icon: 'MapPin' },
+  { value: 'jp', label: '🇯🇵 Япония', icon: 'MapPin' }
 ];
 
 const Index = () => {
