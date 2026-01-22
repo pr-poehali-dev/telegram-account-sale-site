@@ -1,339 +1,70 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
+import ShoppingCart from '@/components/ShoppingCart';
+import { countries, generateAccounts } from '@/data/countries';
 
-const accounts = [
-  {
-    id: 1,
-    title: 'Премиум аккаунт Казахстан',
-    price: 150,
-    verified: true,
-    premium: true,
-    age: '2 года',
-    followers: '1.2К',
-    country: 'kz',
-    countryName: '🇰🇿 Казахстан',
-    features: ['Telegram Premium', 'Верифицирован', 'Активность высокая']
-  },
-  {
-    id: 2,
-    title: 'Бизнес аккаунт Беларусь',
-    price: 180,
-    verified: true,
-    premium: true,
-    age: '3 года',
-    followers: '5.8К',
-    country: 'by',
-    countryName: '🇧🇾 Беларусь',
-    features: ['Telegram Premium', 'Верифицирован', 'История сообщений']
-  },
-  {
-    id: 3,
-    title: 'Старый аккаунт Финляндия',
-    price: 350,
-    verified: false,
-    premium: false,
-    age: '5 лет',
-    followers: '320',
-    country: 'fi',
-    countryName: '🇫🇮 Финляндия',
-    features: ['Старая регистрация', 'Чистая история', 'Без банов']
-  },
-  {
-    id: 4,
-    title: 'Премиум аккаунт Украина',
-    price: 170,
-    verified: true,
-    premium: true,
-    age: '1.5 года',
-    followers: '890',
-    country: 'ua',
-    countryName: '🇺🇦 Украина',
-    features: ['Telegram Premium', 'Верифицирован', 'Активные подписки']
-  },
-  {
-    id: 5,
-    title: 'Бизнес аккаунт Польша',
-    price: 280,
-    verified: true,
-    premium: true,
-    age: '4 года',
-    followers: '12К',
-    country: 'pl',
-    countryName: '🇵🇱 Польша',
-    features: ['Telegram Premium', 'Верифицирован', 'Большая аудитория']
-  },
-  {
-    id: 6,
-    title: 'Старый аккаунт Великобритания',
-    price: 400,
-    verified: false,
-    premium: false,
-    age: '7 лет',
-    followers: '150',
-    country: 'gb',
-    countryName: '🇬🇧 Великобритания',
-    features: ['Раритетный', 'Оригинальная регистрация', 'Без блокировок']
-  },
-  {
-    id: 7,
-    title: 'Премиум аккаунт Германия',
-    price: 320,
-    verified: true,
-    premium: true,
-    age: '3 года',
-    followers: '2.5К',
-    country: 'de',
-    countryName: '🇩🇪 Германия',
-    features: ['Telegram Premium', 'Верифицирован', 'Европейский номер']
-  },
-  {
-    id: 8,
-    title: 'Бизнес аккаунт Турция',
-    price: 190,
-    verified: true,
-    premium: false,
-    age: '2.5 года',
-    followers: '4.1К',
-    country: 'tr',
-    countryName: '🇹🇷 Турция',
-    features: ['Верифицирован', 'История переписок', 'Активные группы']
-  },
-  {
-    id: 9,
-    title: 'Старый аккаунт Литва',
-    price: 310,
-    verified: false,
-    premium: true,
-    age: '6 лет',
-    followers: '580',
-    country: 'lt',
-    countryName: '🇱🇹 Литва',
-    features: ['Telegram Premium', 'Старая регистрация', 'Чистая история']
-  },
-  {
-    id: 10,
-    title: 'Премиум аккаунт Испания',
-    price: 290,
-    verified: true,
-    premium: true,
-    age: '2 года',
-    followers: '1.8К',
-    country: 'es',
-    countryName: '🇪🇸 Испания',
-    features: ['Telegram Premium', 'Верифицирован', 'Активные чаты']
-  },
-  {
-    id: 11,
-    title: 'Бизнес аккаунт Франция',
-    price: 340,
-    verified: true,
-    premium: true,
-    age: '4 года',
-    followers: '7.2К',
-    country: 'fr',
-    countryName: '🇫🇷 Франция',
-    features: ['Telegram Premium', 'Верифицирован', 'История активности']
-  },
-  {
-    id: 12,
-    title: 'Аккаунт Италия',
-    price: 260,
-    verified: false,
-    premium: false,
-    age: '3 года',
-    followers: '940',
-    country: 'it',
-    countryName: '🇮🇹 Италия',
-    features: ['Чистая история', 'Без банов', 'Активность средняя']
-  },
-  {
-    id: 13,
-    title: 'Премиум аккаунт США',
-    price: 390,
-    verified: true,
-    premium: true,
-    age: '5 лет',
-    followers: '3.5К',
-    country: 'us',
-    countryName: '🇺🇸 США',
-    features: ['Telegram Premium', 'Верифицирован', 'Старая регистрация']
-  },
-  {
-    id: 14,
-    title: 'Аккаунт Канада',
-    price: 370,
-    verified: true,
-    premium: false,
-    age: '3.5 года',
-    followers: '2.1К',
-    country: 'ca',
-    countryName: '🇨🇦 Канада',
-    features: ['Верифицирован', 'Чистая история', 'Без блокировок']
-  },
-  {
-    id: 15,
-    title: 'Старый аккаунт Австралия',
-    price: 380,
-    verified: false,
-    premium: true,
-    age: '6 лет',
-    followers: '1.1К',
-    country: 'au',
-    countryName: '🇦🇺 Австралия',
-    features: ['Telegram Premium', 'Старая регистрация', 'Редкий номер']
-  },
-  {
-    id: 16,
-    title: 'Аккаунт Швеция',
-    price: 300,
-    verified: true,
-    premium: false,
-    age: '2.5 года',
-    followers: '1.5К',
-    country: 'se',
-    countryName: '🇸🇪 Швеция',
-    features: ['Верифицирован', 'Европейский номер', 'Чистая история']
-  },
-  {
-    id: 17,
-    title: 'Премиум аккаунт Норвегия',
-    price: 330,
-    verified: true,
-    premium: true,
-    age: '3 года',
-    followers: '2.8К',
-    country: 'no',
-    countryName: '🇳🇴 Норвегия',
-    features: ['Telegram Premium', 'Верифицирован', 'Активные подписки']
-  },
-  {
-    id: 18,
-    title: 'Аккаунт Чехия',
-    price: 220,
-    verified: false,
-    premium: false,
-    age: '2 года',
-    followers: '680',
-    country: 'cz',
-    countryName: '🇨🇿 Чехия',
-    features: ['Чистая история', 'Без банов', 'Европейский номер']
-  },
-  {
-    id: 19,
-    title: 'Бизнес аккаунт Нидерланды',
-    price: 310,
-    verified: true,
-    premium: true,
-    age: '4 года',
-    followers: '5.6К',
-    country: 'nl',
-    countryName: '🇳🇱 Нидерланды',
-    features: ['Telegram Premium', 'Верифицирован', 'Большая аудитория']
-  },
-  {
-    id: 20,
-    title: 'Аккаунт Грузия',
-    price: 120,
-    verified: false,
-    premium: false,
-    age: '1.5 года',
-    followers: '450',
-    country: 'ge',
-    countryName: '🇬🇪 Грузия',
-    features: ['Чистая история', 'Без блокировок', 'Активность средняя']
-  },
-  {
-    id: 21,
-    title: 'Премиум аккаунт Эстония',
-    price: 290,
-    verified: true,
-    premium: true,
-    age: '3 года',
-    followers: '1.9К',
-    country: 'ee',
-    countryName: '🇪🇪 Эстония',
-    features: ['Telegram Premium', 'Верифицирован', 'Европейский номер']
-  },
-  {
-    id: 22,
-    title: 'Аккаунт Латвия',
-    price: 250,
-    verified: true,
-    premium: false,
-    age: '2 года',
-    followers: '1.3К',
-    country: 'lv',
-    countryName: '🇱🇻 Латвия',
-    features: ['Верифицирован', 'Чистая история', 'Активные группы']
-  },
-  {
-    id: 23,
-    title: 'Аккаунт Армения',
-    price: 130,
-    verified: false,
-    premium: false,
-    age: '1 год',
-    followers: '380',
-    country: 'am',
-    countryName: '🇦🇲 Армения',
-    features: ['Без банов', 'Чистая история', 'Новый номер']
-  },
-  {
-    id: 24,
-    title: 'Премиум аккаунт Япония',
-    price: 395,
-    verified: true,
-    premium: true,
-    age: '5 лет',
-    followers: '4.2К',
-    country: 'jp',
-    countryName: '🇯🇵 Япония',
-    features: ['Telegram Premium', 'Верифицирован', 'Раритетный']
-  }
-];
-
-const countries = [
-  { value: 'all', label: 'Все страны', icon: 'Globe' },
-  { value: 'kz', label: '🇰🇿 Казахстан', icon: 'MapPin' },
-  { value: 'by', label: '🇧🇾 Беларусь', icon: 'MapPin' },
-  { value: 'fi', label: '🇫🇮 Финляндия', icon: 'MapPin' },
-  { value: 'ua', label: '🇺🇦 Украина', icon: 'MapPin' },
-  { value: 'pl', label: '🇵🇱 Польша', icon: 'MapPin' },
-  { value: 'gb', label: '🇬🇧 Великобритания', icon: 'MapPin' },
-  { value: 'de', label: '🇩🇪 Германия', icon: 'MapPin' },
-  { value: 'tr', label: '🇹🇷 Турция', icon: 'MapPin' },
-  { value: 'lt', label: '🇱🇹 Литва', icon: 'MapPin' },
-  { value: 'es', label: '🇪🇸 Испания', icon: 'MapPin' },
-  { value: 'fr', label: '🇫🇷 Франция', icon: 'MapPin' },
-  { value: 'it', label: '🇮🇹 Италия', icon: 'MapPin' },
-  { value: 'us', label: '🇺🇸 США', icon: 'MapPin' },
-  { value: 'ca', label: '🇨🇦 Канада', icon: 'MapPin' },
-  { value: 'au', label: '🇦🇺 Австралия', icon: 'MapPin' },
-  { value: 'se', label: '🇸🇪 Швеция', icon: 'MapPin' },
-  { value: 'no', label: '🇳🇴 Норвегия', icon: 'MapPin' },
-  { value: 'cz', label: '🇨🇿 Чехия', icon: 'MapPin' },
-  { value: 'nl', label: '🇳🇱 Нидерланды', icon: 'MapPin' },
-  { value: 'ge', label: '🇬🇪 Грузия', icon: 'MapPin' },
-  { value: 'ee', label: '🇪🇪 Эстония', icon: 'MapPin' },
-  { value: 'lv', label: '🇱🇻 Латвия', icon: 'MapPin' },
-  { value: 'am', label: '🇦🇲 Армения', icon: 'MapPin' },
-  { value: 'jp', label: '🇯🇵 Япония', icon: 'MapPin' }
-];
+interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  countryName: string;
+  quantity: number;
+}
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('all');
+  const [cart, setCart] = useState<CartItem[]>([]);
+
+  const accounts = useMemo(() => generateAccounts(), []);
+
+  const countryOptions = [
+    { value: 'all', label: 'Все страны', icon: 'Globe' },
+    ...countries.map(c => ({ value: c.code, label: `${c.flag} ${c.name}`, icon: 'MapPin' as const }))
+  ];
 
   const filteredAccounts = accounts.filter(account => {
     const matchesSearch = account.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCountry = selectedCountry === 'all' || account.country === selectedCountry;
     return matchesSearch && matchesCountry;
   });
+
+  const addToCart = (account: typeof accounts[0]) => {
+    setCart(prev => {
+      const existingItem = prev.find(item => item.id === account.id);
+      if (existingItem) {
+        return prev.map(item =>
+          item.id === account.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [...prev, {
+        id: account.id,
+        title: account.title,
+        price: account.price,
+        countryName: account.countryName,
+        quantity: 1
+      }];
+    });
+  };
+
+  const removeFromCart = (id: number) => {
+    setCart(prev => prev.filter(item => item.id !== id));
+  };
+
+  const updateQuantity = (id: number, quantity: number) => {
+    setCart(prev =>
+      prev.map(item => (item.id === id ? { ...item, quantity } : item))
+    );
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10">
@@ -348,10 +79,12 @@ const Index = () => {
             </h1>
           </div>
           <nav className="flex items-center gap-4">
-            <Button variant="ghost" className="hidden md:flex">
-              <Icon name="Heart" className="mr-2" size={18} />
-              Избранное
-            </Button>
+            <ShoppingCart
+              items={cart}
+              onRemoveItem={removeFromCart}
+              onUpdateQuantity={updateQuantity}
+              onClearCart={clearCart}
+            />
             <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
               <Icon name="User" className="mr-2" size={18} />
               Войти
@@ -374,7 +107,7 @@ const Index = () => {
               с гарантией
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Верифицированные аккаунты с историей. Полная проверка, безопасная передача, поддержка 24/7
+              Верифицированные аккаунты из 150 стран. Полная проверка, безопасная передача, поддержка 24/7
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg px-8">
@@ -399,7 +132,7 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { icon: 'Shield', label: 'Гарантия безопасности', value: '100%' },
-              { icon: 'Users', label: 'Довольных клиентов', value: '5000+' },
+              { icon: 'Globe', label: 'Стран в каталоге', value: '150+' },
               { icon: 'CheckCircle', label: 'Проверенных аккаунтов', value: '1200+' },
               { icon: 'Clock', label: 'Поддержка', value: '24/7' }
             ].map((stat, i) => (
@@ -423,7 +156,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="mb-8">
             <h3 className="text-3xl md:text-4xl font-bold mb-2">Каталог аккаунтов</h3>
-            <p className="text-muted-foreground">Выберите подходящий аккаунт из нашей коллекции</p>
+            <p className="text-muted-foreground">Выберите подходящий аккаунт из 150 стран</p>
           </div>
 
           <div className="mb-8 flex flex-col md:flex-row gap-4">
@@ -441,7 +174,7 @@ const Index = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {countries.map((country) => (
+                {countryOptions.slice(0, 20).map((country) => (
                   <SelectItem key={country.value} value={country.value}>
                     <div className="flex items-center gap-2">
                       <Icon name={country.icon} size={16} />
@@ -454,7 +187,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAccounts.map((account, i) => (
+            {filteredAccounts.slice(0, 12).map((account, i) => (
               <Card key={account.id} className="border-border/50 bg-card/50 backdrop-blur hover:border-primary/50 transition-all duration-300 group hover:scale-[1.02] animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
                 <CardHeader>
                   <div className="flex items-start justify-between mb-3">
@@ -501,7 +234,10 @@ const Index = () => {
                       {account.price.toLocaleString()}₽
                     </div>
                   </div>
-                  <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                  <Button 
+                    className="bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                    onClick={() => addToCart(account)}
+                  >
                     <Icon name="ShoppingCart" className="mr-2" size={18} />
                     Купить
                   </Button>
@@ -509,6 +245,14 @@ const Index = () => {
               </Card>
             ))}
           </div>
+
+          {filteredAccounts.length > 12 && (
+            <div className="mt-8 text-center">
+              <p className="text-muted-foreground">
+                Показано 12 из {filteredAccounts.length} аккаунтов. Используйте фильтры для уточнения поиска.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
