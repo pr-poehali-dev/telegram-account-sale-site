@@ -9,87 +9,135 @@ import Icon from '@/components/ui/icon';
 const accounts = [
   {
     id: 1,
-    title: 'Премиум аккаунт 2 года',
+    title: 'Премиум аккаунт Казахстан',
     price: 4500,
     verified: true,
     premium: true,
     age: '2 года',
     followers: '1.2К',
-    category: 'premium',
+    country: 'kz',
+    countryName: '🇰🇿 Казахстан',
     features: ['Telegram Premium', 'Верифицирован', 'Активность высокая']
   },
   {
     id: 2,
-    title: 'Бизнес аккаунт',
+    title: 'Бизнес аккаунт Беларусь',
     price: 6800,
     verified: true,
     premium: true,
     age: '3 года',
     followers: '5.8К',
-    category: 'business',
+    country: 'by',
+    countryName: '🇧🇾 Беларусь',
     features: ['Telegram Premium', 'Верифицирован', 'История сообщений']
   },
   {
     id: 3,
-    title: 'Старый аккаунт 5 лет',
-    price: 8200,
+    title: 'Старый аккаунт Финляндия',
+    price: 12200,
     verified: false,
     premium: false,
     age: '5 лет',
     followers: '320',
-    category: 'old',
+    country: 'fi',
+    countryName: '🇫🇮 Финляндия',
     features: ['Старая регистрация', 'Чистая история', 'Без банов']
   },
   {
     id: 4,
-    title: 'Премиум аккаунт с историей',
+    title: 'Премиум аккаунт Украина',
     price: 5200,
     verified: true,
     premium: true,
     age: '1.5 года',
     followers: '890',
-    category: 'premium',
+    country: 'ua',
+    countryName: '🇺🇦 Украина',
     features: ['Telegram Premium', 'Верифицирован', 'Активные подписки']
   },
   {
     id: 5,
-    title: 'Бизнес с аудиторией',
-    price: 12500,
+    title: 'Бизнес аккаунт Польша',
+    price: 8500,
     verified: true,
     premium: true,
     age: '4 года',
     followers: '12К',
-    category: 'business',
+    country: 'pl',
+    countryName: '🇵🇱 Польша',
     features: ['Telegram Premium', 'Верифицирован', 'Большая аудитория']
   },
   {
     id: 6,
-    title: 'Старый аккаунт 7 лет',
-    price: 15000,
+    title: 'Старый аккаунт Великобритания',
+    price: 18000,
     verified: false,
     premium: false,
     age: '7 лет',
     followers: '150',
-    category: 'old',
+    country: 'gb',
+    countryName: '🇬🇧 Великобритания',
     features: ['Раритетный', 'Оригинальная регистрация', 'Без блокировок']
+  },
+  {
+    id: 7,
+    title: 'Премиум аккаунт Германия',
+    price: 9800,
+    verified: true,
+    premium: true,
+    age: '3 года',
+    followers: '2.5К',
+    country: 'de',
+    countryName: '🇩🇪 Германия',
+    features: ['Telegram Premium', 'Верифицирован', 'Европейский номер']
+  },
+  {
+    id: 8,
+    title: 'Бизнес аккаунт Турция',
+    price: 7200,
+    verified: true,
+    premium: false,
+    age: '2.5 года',
+    followers: '4.1К',
+    country: 'tr',
+    countryName: '🇹🇷 Турция',
+    features: ['Верифицирован', 'История переписок', 'Активные группы']
+  },
+  {
+    id: 9,
+    title: 'Старый аккаунт Литва',
+    price: 11500,
+    verified: false,
+    premium: true,
+    age: '6 лет',
+    followers: '580',
+    country: 'lt',
+    countryName: '🇱🇹 Литва',
+    features: ['Telegram Premium', 'Старая регистрация', 'Чистая история']
   }
 ];
 
-const categories = [
-  { value: 'all', label: 'Все категории', icon: 'LayoutGrid' },
-  { value: 'premium', label: 'Премиум', icon: 'Crown' },
-  { value: 'business', label: 'Бизнес', icon: 'Briefcase' },
-  { value: 'old', label: 'Старые', icon: 'Clock' }
+const countries = [
+  { value: 'all', label: 'Все страны', icon: 'Globe' },
+  { value: 'kz', label: '🇰🇿 Казахстан', icon: 'MapPin' },
+  { value: 'by', label: '🇧🇾 Беларусь', icon: 'MapPin' },
+  { value: 'fi', label: '🇫🇮 Финляндия', icon: 'MapPin' },
+  { value: 'ua', label: '🇺🇦 Украина', icon: 'MapPin' },
+  { value: 'pl', label: '🇵🇱 Польша', icon: 'MapPin' },
+  { value: 'gb', label: '🇬🇧 Великобритания', icon: 'MapPin' },
+  { value: 'de', label: '🇩🇪 Германия', icon: 'MapPin' },
+  { value: 'tr', label: '🇹🇷 Турция', icon: 'MapPin' },
+  { value: 'lt', label: '🇱🇹 Литва', icon: 'MapPin' }
 ];
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCountry, setSelectedCountry] = useState('all');
 
   const filteredAccounts = accounts.filter(account => {
     const matchesSearch = account.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || account.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesCountry = selectedCountry === 'all' || account.country === selectedCountry;
+    return matchesSearch && matchesCountry;
   });
 
   return (
@@ -193,16 +241,16 @@ const Index = () => {
                 className="pl-10 h-12 bg-card/50 border-border/50"
               />
             </div>
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-[200px] h-12 bg-card/50 border-border/50">
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="w-full md:w-[240px] h-12 bg-card/50 border-border/50">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat.value} value={cat.value}>
+                {countries.map((country) => (
+                  <SelectItem key={country.value} value={country.value}>
                     <div className="flex items-center gap-2">
-                      <Icon name={cat.icon} size={16} />
-                      {cat.label}
+                      <Icon name={country.icon} size={16} />
+                      {country.label}
                     </div>
                   </SelectItem>
                 ))}
@@ -215,11 +263,9 @@ const Index = () => {
               <Card key={account.id} className="border-border/50 bg-card/50 backdrop-blur hover:border-primary/50 transition-all duration-300 group hover:scale-[1.02] animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
                 <CardHeader>
                   <div className="flex items-start justify-between mb-3">
-                    <Badge variant={account.premium ? 'default' : 'secondary'} className="bg-gradient-to-r from-primary to-secondary">
-                      <Icon name="Crown" className="mr-1" size={14} />
-                      {account.category === 'premium' && 'Премиум'}
-                      {account.category === 'business' && 'Бизнес'}
-                      {account.category === 'old' && 'Старый'}
+                    <Badge variant="default" className="bg-gradient-to-r from-primary to-secondary">
+                      <Icon name="MapPin" className="mr-1" size={14} />
+                      {account.countryName}
                     </Badge>
                     {account.verified && (
                       <Badge variant="outline" className="border-green-500/50 text-green-400">
